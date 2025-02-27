@@ -1,19 +1,18 @@
-# Definisanje promenljivih
 CXX = g++
-CXXFLAGS = -Wall -std=c++11
+CXXFLAGS = -Wall -std=c++11 -pthread
+LDFLAGS = -lboost_system -lboost_thread
 
-# Definisanje izlaznog fajla i objektnog fajla
-TARGET = hello_world
-OBJ = main.o
+TARGET = app
+SRC = main.cpp server.cpp client.cpp
+OBJ = $(SRC:.cpp=.o)
 
-# Pravilo za kompilaciju
+all: $(TARGET)
+
 $(TARGET): $(OBJ)
-	$(CXX) $(OBJ) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(TARGET) $(LDFLAGS)
 
-# Pravilo za kompilaciju objektnog fajla
-main.o: main.cpp main.h
-	$(CXX) $(CXXFLAGS) -c main.cpp
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Pravilo za čišćenje (brisanjem objektnog fajla i izvršnog fajla)
 clean:
 	rm -f $(OBJ) $(TARGET)

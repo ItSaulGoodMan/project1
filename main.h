@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void print_hello();
+void start_server();
+void start_client();
 
-#endif
+#endif // MAIN_H
